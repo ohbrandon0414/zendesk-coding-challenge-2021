@@ -11,10 +11,11 @@ Use this github to download the code and run it on your preferred choice of term
 ## Requirements/Dependencies
 * Python: version higher than 3.90
 * [Requests](https://docs.python-requests.org/en/latest/): Python HTTP library that was used to make API calls .
+* Users information should be added in run.py to make the program run properly (subdomain, username, password, page size)
 
 ## Usage/Features
 
-There are two features in the program
+After making sure that user's information is put into run.py, there are two features in the program:
 
 1. **The first feature is to view tickets and navigate them through pages**
 
