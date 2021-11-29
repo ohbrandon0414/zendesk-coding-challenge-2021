@@ -1,6 +1,4 @@
 from datetime import datetime 
-# from dateutil import parser
-
 
 # the color class that could change the display of the letters in the terminal
 class bcolors:
@@ -75,9 +73,13 @@ def print_ticket(data):
     :param data: the data of the ticket details in a json format
     """ 
     # convert the string format into a datetime object to extract the information to display
-    date = datetime.strptime(data['updated_at'], "%Y-%m-%dT%H:%M:%S%z")
-    # convert the datetime object back into a string that looks more user friendly
-    date_time_str = date.strftime("%d %b %Y %I:%M%p")
+    # if fails, just keep the original
+    try:
+        date = datetime.strptime(data['updated_at'], "%Y-%m-%dT%H:%M:%S%z")
+        # convert the datetime object back into a string that looks more user friendly
+        date_time_str = date.strftime("%d %b %Y %I:%M%p")
+    except:
+        date_time_str = data['updated_at']
     print(bcolors.OKGREEN +"\nSUBJECT: \n"+ bcolors.ENDC + data['subject'])
     print(bcolors.OKGREEN + "REQUESTER: \n" + bcolors.ENDC + str(data['requester_id']))
     print(bcolors.OKGREEN + "UPDATED AT: \n" + bcolors.ENDC + date_time_str)
@@ -96,10 +98,13 @@ def print_page(page):
     print(bcolors.OKGREEN+"\n  |{:^6}|{:^55}|{:^20}|{:^30}|".format("ID", "SUBJECT", "OPENED BY", "UPDATED"))
     print('-'*125)
     for t in page:
-        # convert the string format into a datetime object to extract the information to display
-        date = datetime.strptime(t['updated_at'], "%Y-%m-%dT%H:%M:%S%z")
-        # convert the datetime object back into a string that looks more user friendly
-        date_time_str = date.strftime("%d %b %Y %I:%M%p")
+        # convert the string format into a datetime object to extract the information to display if fails, just keep it
+        try:
+            date = datetime.strptime(t['updated_at'], "%Y-%m-%dT%H:%M:%S%z")
+            # convert the datetime object back into a string that looks more user friendly
+            date_time_str = date.strftime("%d %b %Y %I:%M%p")
+        except:
+            date_time_str = t['updated_at']
         print("  |{:^6}|{:^55}|{:^20}|{:^30}|".format(str(t['id']), t['subject'], t['requester_id'], date_time_str))
 
 def print_api_error(error):
