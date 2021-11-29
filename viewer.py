@@ -1,8 +1,6 @@
 import requests
 from requests.auth import HTTPBasicAuth
-from http.client import HTTPSConnection
 from format import *
-# from base64 import b64encode
 
 class viewer():
     """This is a viewer class to create a ticket viewer.
@@ -91,6 +89,8 @@ class viewer():
         """ 
         # user starts on the first page
         print_page(page['tickets'])
+
+        # flag that would be used to check if user is on the first page
         prev_curso_of_first_page = page['meta']['before_cursor']
         while True:
             links = page['links']
